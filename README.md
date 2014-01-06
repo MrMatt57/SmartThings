@@ -33,9 +33,19 @@ Todo:
 - Someone Arrives
   - Disarm Security
   - Set Thermostat
+  - Lights On (based on sunrise and/or light sensor)
 
 - Security Alert
   - High Priority Notifications
   - Sound Alarm
   - Lights On for X minutes (based on sunrise and/or light sensor)
+
+- Sunrise 
+  - Turn Security Lights Off (Offset)
+
+- Sunset
+  - Turn Security Lights On (Offset)
+
+- Left Open
+  - Permimeter Doors
   
