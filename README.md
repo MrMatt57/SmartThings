@@ -1,7 +1,6 @@
-Smartthings
+SmartThings
 ===========
-
-This is a place where I plan to collect my [Smart Things](http://www.smartthings.com/) SmartApps.
+This is a place where I plan to collect my [Smart Things](http://www.smartthings.com/) SmartApps and home automation ideas.
 
 Design Philosophies:
 - Presence based actions
