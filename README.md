@@ -3,18 +3,13 @@ Smartthings
 
 This is a place where I plan to collect my [Smart Things](http://www.smartthings.com/) SmartApps.
 
-Groups: 
+Design Philosophies:
+- Presence based actions
+- Little or no interaction required
+- Notification will have priority
 
-- Light
-- Thermostat
-- Security
-  - Security Permimeter
-  - Security All
-- Security Device
-
-Todo:
-
-- Wake up
+Events:
+- Wake up (How to best detect?)
   - Lights On (based on sunrise and/or light sensor)
   - Coffee Maker On
 
@@ -22,9 +17,6 @@ Todo:
   - All lights not in Security group off
   - Arm Perimeter
   - Set Thermostat
-
-- Watching Movie
-  - Light Scene
 
 - Everyone Away
   - Arm Security
@@ -46,6 +38,17 @@ Todo:
 - Sunset
   - Turn Security Lights On (Offset)
 
-- Left Open
-  - Permimeter Doors
+- Left Open 
+  - Permimeter Doors (< 60f and > 80f)
+
+- Hall Motion
+  - Dim on Light
+  - Set Home Status?
+
+- Watching Movie
+  - Light Scene
+
+Need to figure out:
+- Best way to automatically set modes
+- Coffee machine interface (Keurig B150)
   
