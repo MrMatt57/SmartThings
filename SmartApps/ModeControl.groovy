@@ -119,10 +119,10 @@ def takeAction()
 		if (awayLongEnough.size() == people.size()) {
 			// TODO -- uncomment when app label is available
 			//def message = "${app.label} changed your mode to '${newAwayMode}' because everyone left home"
-			def message = "SmartThings changed your mode to '${newAwayMode}' because everyone left home"
+			def message = "Changed your mode to '${newAwayMode}' because everyone left home."
 			log.info message
 			send(message)
-			setLocationMode(newMode)
+			setLocationMode(newAwayMode)
 		} else {
 			log.debug "not everyone has been away long enough; doing nothing"
 		}
