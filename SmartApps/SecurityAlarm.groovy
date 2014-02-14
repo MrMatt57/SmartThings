@@ -5,6 +5,9 @@
  *  Date: 2014-01-09
  */
 preferences {
+    section("Master switch") {
+        input "masterSwitch", "capability.switch", title: "Master?", required: false
+    }
     section("When any of these devices trigger...") {
         input "contact", "capability.contactSensor", title: "Contact Sensor?", multiple: true, required:false
         input "accelerationSensor", "capability.accelerationSensor", title: "Acceleration Sensor?", multiple: true, required:false
@@ -16,7 +19,9 @@ preferences {
         input "alarm", "capability.alarm", title: "Alarm Device?", required: false, multiple: true
         input "alarmSwitch", "capability.switch", title: "Switch Device?", required: false, multiple: true
         input "alarmTimeoutSeconds", "number", title: "Alarm Duration Seconds? (default 30)", required:false
+        input "alarmSwitchTimeoutSeconds", "number", title: "Switch Duration Seconds? (default 30)", required:false
     }
+    
     section( "Send these notifications..." ) {
         input "sendPushMessage", "enum", title: "Send a push notification?", metadata:[values:["No","Yes"]]
         input "messageText", "text", title: "Message text?", required: false
@@ -51,25 +56,46 @@ def initialize() {
     if (presenceDevice) {
         subscribe(presenceDevice, "presence", triggerAlarm)
     }
+    if (masterSwitch) {
+        subscribe(masterSwitch, "switch", toggleAlarm)
+    }
 }
 
 def triggerAlarm(evt) {
 
-    // Signal Alarm
-    if (alarm) {
-        alarm?.both()
-    }
-    if (alarmSwitch) {
-        alarmSwitch?.on()
-    }
-    
-    //Send Notification
     def msg = "[$evt.displayName] Alarm triggered"
     if (messageText) {
         msg = "[$evt.displayName] $messageText"
     }
-
+    
+    log.debug(masterSwitch.latestValue("switch"))
+    
+    if (masterSwitch && masterSwitch.latestValue("switch") == "off") {
+        msg = "Master Alarm Switch OFF - $msg"
+        sendMsg(msg)
+        log.debug(msg)
+        return;
+    }
+    
+    // Signal Alarm
+    alarm?.both()
+    alarmSwitch?.on()
+    
+    //Send Notification
+    sendMsg(msg)
     log.info "$msg"
+    
+    // Schedule Alarm to turn Off
+    def alarmTimeoutSeconds = alarmTimeoutSeconds ?: 30
+    runIn(alarmTimeoutSeconds, resetAlarm)
+    log.debug "Reset Alarm in $alarmTimeoutSeconds Seconds"
+    
+    def alarmSwitchTimeoutSeconds = alarmSwitchTimeoutSeconds ?: 30
+    runIn(alarmSwitchTimeoutSeconds, resetAlarmSwitch)
+    log.debug "Reset Switch in $alarmSwitchTimeoutSeconds Seconds"
+}
+
+def sendMsg(msg) {
     if (sendPushMessage == "Yes") {
         sendPush(msg)
         log.debug "Push Notification Sent"
@@ -78,20 +104,26 @@ def triggerAlarm(evt) {
         sendSms(phone, msg)
         log.debug "SMS sent to $phone"
     }
-    
-    // Schedule Alarm to turn Off
-    def alarmTimeoutSeconds = alarmTimeoutSeconds ?: 30
-    runIn(alarmTimeoutSeconds, resetAlarm)
-    log.debug "Reset in $alarmTimeoutSeconds Seconds"
+}
+
+def toggleAlarm(evt) {
+    if (evt.value == "off") {
+        resetAlarmSwitch()
+        alarm?.off()
+        log.info("Master switch turned off alarm.")
+    }
+    else {
+        log.info("Master swtich turned on alarm.")
+    }
+}
+
+def resetAlarmSwitch() {
+    alarmSwitch?.off()
+    log.debug "Alarm Switch Reset"
 }
 
 def resetAlarm() {
-    if (alarm) {
-        alarm?.off()
-    }
-    if (alarmSwitch) {
-        alarmSwitch?.off()
-    }
-    log.debug "Alarm reset"
+    alarm?.off()
+    log.debug "Alarm Reset"
 }
 
