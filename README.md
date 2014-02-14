@@ -2,13 +2,28 @@ SmartThings
 ===========
 This is a place where I plan to collect my [Smart Things](http://www.smartthings.com/) SmartApps and home automation ideas.
 
-Design Philosophies:
+## Design Philosophies:
 - Presence based actions
 - Little or no interaction required
 - Notification will have priority
 
-Events:
-- Wake up (How to best detect?)
+## Modes
+
+All modes are controlled by Mode Control smart app or manually through the mobile application interface.  Other applications subscribe to mode changes and coordinate their specific funtionality.
+
+  - Home
+  - Away
+  - Sleeping
+  - Offline
+
+## Security System
+
+Need to write up... using an instance of Security Alarm for each mode
+
+
+## Design Notes
+
+Wake up (How to best detect?)
   - Lights On (based on sunrise and/or light sensor)
   - Coffee Maker On
 
@@ -48,6 +63,5 @@ Events:
   - Light Scene
 
 Need to figure out:
-- Best way to automatically set modes
 - Coffee machine interface (Keurig B150)
   
