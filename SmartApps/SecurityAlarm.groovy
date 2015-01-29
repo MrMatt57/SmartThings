@@ -1,9 +1,21 @@
+
 /**
  *  Security Alarm
  *
  *  Author: mwwalker@gmail.com
  *  Date: 2014-01-09
  */
+
+// Automatically generated. Make future change here.
+definition(
+    name: "Security Alarm",
+    namespace: "",
+    author: "mwwalker@gmail.com",
+    description: "This app will sound alarm if one of the sensors is tripped for the mode being monitored.",
+    category: "My Apps",
+    iconUrl: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
+    iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience%402x.png")
+
 preferences {
     section("Master switch") {
         input "masterSwitch", "capability.switch", title: "Master?", required: false
@@ -26,6 +38,7 @@ preferences {
         input "sendPushMessage", "enum", title: "Send a push notification?", metadata:[values:["No","Yes"]]
         input "messageText", "text", title: "Message text?", required: false
         input "phone", "phone", title: "Send a Text Message?", required: false
+        input "pushBulletAPIKey", "text", title: "Pushbullet API Key?", required: false
     }
 }
 
@@ -63,17 +76,16 @@ def initialize() {
 
 def triggerAlarm(evt) {
 
-    def msg = "[$evt.displayName] Alarm triggered"
+    def msg = "Alarm Triggered"
     if (messageText) {
-        msg = "[$evt.displayName] $messageText"
+        msg = "$messageText"
     }
     
     log.debug(masterSwitch.latestValue("switch"))
     
     if (masterSwitch && masterSwitch.latestValue("switch") == "off") {
         msg = "Master Alarm Switch OFF - $msg"
-        sendMsg(msg)
-        log.debug(msg)
+        sendMsg(evt.displayName, msg)
         return;
     }
     
@@ -82,8 +94,7 @@ def triggerAlarm(evt) {
     alarmSwitch?.on()
     
     //Send Notification
-    sendMsg(msg)
-    log.info "$msg"
+    sendMsg(evt.displayName, msg)
     
     // Schedule Alarm to turn Off
     def alarmTimeoutSeconds = alarmTimeoutSeconds ?: 30
@@ -95,14 +106,31 @@ def triggerAlarm(evt) {
     log.debug "Reset Switch in $alarmSwitchTimeoutSeconds Seconds"
 }
 
-def sendMsg(msg) {
+def sendMsg(deviceName, msg) {
+    msg = "${msg} @ ${(new Date(now())).format("h:mm.ss a", location.timeZone)}"
+    def oneLineMsg = "[${deviceName}] ${msg}"
+    log.debug "${msg}"
+
     if (sendPushMessage == "Yes") {
-        sendPush(msg)
+        sendPush(oneLineMsg)
         log.debug "Push Notification Sent"
     }
+    
     if (phone) {
-        sendSms(phone, msg)
+        sendSms(phone, oneLineMsg)
         log.debug "SMS sent to $phone"
+    }
+
+    if(pushBulletAPIKey) {
+        def encodedKey = ("${pushBulletAPIKey}:").encodeAsBase64().toString()
+        def params = [
+            uri: 'https://api.pushbullet.com/v2/pushes',
+            headers: ["Content-Type": "application/json", "Authorization": "Basic ${encodedKey}"],
+            body: ["type": "note", "title": deviceName, "body": msg.toString()]
+        ]
+        httpPostJson(params) {
+            log.debug "Pushbullet Msg Sent."
+        }
     }
 }
 
