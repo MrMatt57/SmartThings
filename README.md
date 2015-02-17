@@ -2,10 +2,12 @@ SmartThings
 ===========
 This is a place where I plan to collect my [Smart Things](http://www.smartthings.com/) SmartApps and home automation ideas.
 
+## Custom Devices
+- [HeaterMeter](https://github.com/MrMatt57/SmartThings/tree/master/DeviceTypes/HeaterMeter)
+
 ## Design Philosophies:
 - Presence based actions
-- Little or no interaction required
-- Notification will have priority
+- Little or no interaction with system or application should be required
 
 ## Modes
 
