@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Matt&#39;s Smartthings : ">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Matt&#39;s Smartthings</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/MrMatt57/SmartThings">View on GitHub</a>
+
+          <h1 id="project_title">Matt&#39;s Smartthings</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/MrMatt57/SmartThings/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/MrMatt57/SmartThings/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="smartthings" class="anchor" href="#smartthings" aria-hidden="true"><span class="octicon octicon-link"></span></a>SmartThings</h1>
+
+<p>This is a place where I plan to collect my <a href="http://www.smartthings.com/">Smart Things</a> SmartApps and home automation ideas.</p>
+
+<h2>
+<a id="custom-devices" class="anchor" href="#custom-devices" aria-hidden="true"><span class="octicon octicon-link"></span></a>Custom Devices</h2>
+
+<ul>
+<li><a href="https://github.com/MrMatt57/SmartThings/tree/master/DeviceTypes/HeaterMeter">HeaterMeter</a></li>
+</ul>
+
+<h2>
+<a id="design-philosophies" class="anchor" href="#design-philosophies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Design Philosophies:</h2>
+
+<ul>
+<li>Presence based actions</li>
+<li>Little or no interaction with system or application should be required</li>
+</ul>
+
+<h2>
+<a id="modes" class="anchor" href="#modes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Modes</h2>
+
+<p>All modes are controlled by Mode Control smart app or manually through the mobile application interface.  Other applications subscribe to mode changes and coordinate their specific funtionality.</p>
+
+<ul>
+<li>Home</li>
+<li>Away</li>
+<li>Sleeping</li>
+<li>Offline</li>
+</ul>
+
+<h2>
+<a id="security-system" class="anchor" href="#security-system" aria-hidden="true"><span class="octicon octicon-link"></span></a>Security System</h2>
+
+<p>Need to write up... using an instance of Security Alarm for each mode</p>
+
+<h2>
+<a id="design-notes" class="anchor" href="#design-notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Design Notes</h2>
+
+<p>Wake up (How to best detect?)</p>
+
+<ul>
+<li>Lights On (based on sunrise and/or light sensor)</li>
+<li>Coffee Maker On</li>
+</ul>
+
+<ul>
+<li>
+<p>Everyone Sleeping</p>
+
+<ul>
+<li>All lights not in Security group off</li>
+<li>Arm Perimeter</li>
+<li>Set Thermostat</li>
+</ul>
+</li>
+<li>
+<p>Everyone Away</p>
+
+<ul>
+<li>Arm Security</li>
+<li>Set Thermostat</li>
+</ul>
+</li>
+<li>
+<p>Someone Arrives</p>
+
+<ul>
+<li>Disarm Security</li>
+<li>Set Thermostat</li>
+<li>Lights On (based on sunrise and/or light sensor)</li>
+</ul>
+</li>
+<li>
+<p>Security Alert</p>
+
+<ul>
+<li>High Priority Notifications</li>
+<li>Sound Alarm</li>
+<li>Lights On for X minutes (based on sunrise and/or light sensor)</li>
+</ul>
+</li>
+<li>
+<p>Sunrise </p>
+
+<ul>
+<li>Turn Security Lights Off (Offset)</li>
+</ul>
+</li>
+<li>
+<p>Sunset</p>
+
+<ul>
+<li>Turn Security Lights On (Offset)</li>
+</ul>
+</li>
+<li>
+<p>Left Open </p>
+
+<ul>
+<li>Permimeter Doors (&lt; 60f and &gt; 80f)</li>
+</ul>
+</li>
+<li>
+<p>Hall Motion</p>
+
+<ul>
+<li>Dim on Light</li>
+<li>Set Home Status?</li>
+</ul>
+</li>
+<li>
+<p>Watching Movie</p>
+
+<ul>
+<li>Light Scene</li>
+</ul>
+</li>
+</ul>
+
+<p>Need to figure out:</p>
+
+<ul>
+<li>Coffee machine interface (Keurig B150)</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Matt&#39;s Smartthings maintained by <a href="https://github.com/MrMatt57">MrMatt57</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
