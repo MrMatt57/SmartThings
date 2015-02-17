@@ -5,8 +5,8 @@ SmartThings - http://smartthings.com
 HeaterMeter Project - https://github.com/CapnBry/HeaterMeter/wiki
 
 ## Installation
-1. Add custom device type
-2. Add Device with local device (put anything for device id, it is set withing the device)
+1. Add custom device type in SmartThings IDE
+2. Add Device with local device in SmartThings IDE (put anything for device id, it is set withing the device)
 3. Set Local IP address device preference
 
 ## Limitation
