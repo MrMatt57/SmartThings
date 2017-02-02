@@ -1,5 +1,5 @@
 /**
- *  Automated Closet
+ *  Closet Door
  *
  *  Copyright 2015 Matthew Walker
  *
@@ -64,7 +64,7 @@ def sensorHandler(evt){
 
 def doorKnockHandler(evt) {
   if(contactSensor.latestValue("contact") == "closed"){
-    return
+    return // door is closed
   }
   turnOnSwitch()
 }
@@ -72,7 +72,7 @@ def doorKnockHandler(evt) {
 def turnOnSwitch() {
 	switchDevice?.on()
 	if(allowance && allowance > 0) {
-    	unschedule()
+    	unschedule() // reset timers
 		def delay = allowance * 60
 		log.debug "Turning off in ${allowance} minutes (${delay}seconds)"
 		runIn(delay, turnOffSwitch)
@@ -81,8 +81,5 @@ def turnOnSwitch() {
 
 def turnOffSwitch() {
 	switchDevice?.off()
-    unschedule()
+    unschedule() // reset timers
 }
-
-
-
